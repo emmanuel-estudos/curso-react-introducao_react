@@ -1,7 +1,7 @@
 <style>
     /* Reiniciando a Contagem Geral */
     body {
-        counter-reset: contadorh1;
+        counter-reset: contadorh1 1;
     }
 
     /* Aplica o estilo para H1 e informa que a contagem de H2 deve começar do 0 sempre que um H1 aparecer */
