@@ -42,6 +42,8 @@
 
 # Introdução ao React
 
+> **Última sincronização:** 21/03/2026 18:29:37
+
 ## Sumário de Aulas
 
 - Aula 02 - [Como instalar o React?](#como-instalar-o-react)
