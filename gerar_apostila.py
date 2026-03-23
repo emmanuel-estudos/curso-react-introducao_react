@@ -1,5 +1,10 @@
 import sys
 import os
+import subprocess
+
+# Informações Específicas para a criação do Arquivo
+nome_arquivo = "Apostila-Introducao_ao_React.md"
+titulo_arquivo = "Introdução ao React"
 
 # Pega o caminho absoluto da pasta onde ESTE arquivo está (Pasta do Curso)
 diretorio_do_curso = os.path.dirname(os.path.abspath(__file__))
@@ -12,11 +17,21 @@ if caminho_wiki not in sys.path:
 
 try:
     from gerador import executar
-    # --- CHAMADA COM O NOME QUE VOCÊ QUER ---
+
     executar(
         caminho_pasta=diretorio_do_curso, 
-        nome_arquivo_personalizado="Apostila-Introducao_ao_React.md",
-        titulo_customizado="Introdução ao React"
+        nome_arquivo_personalizado=nome_arquivo,
+        titulo_customizado=titulo_arquivo
     )
+
+    # reabrindo o arquivo markdown gerado
+    caminho_final = os.path.join(diretorio_do_curso, nome_arquivo)
+    
+    if os.path.exists(caminho_final):
+        # Chama o executável 'code' do seu sistema
+        subprocess.run(["code", "-r", caminho_final], shell=True)
+
 except ImportError as e:
     print(f"❌ Erro ao importar a Wiki: {e}")
+except Exception as e:
+    print(f"⚠️ Erro ao tentar abrir no VS Code: {e}")
