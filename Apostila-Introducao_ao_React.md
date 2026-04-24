@@ -42,7 +42,7 @@
 
 # Introdução ao React
 
-> **Última sincronização:** 22/03/2026 22:32:23
+> **Última sincronização:** 24/04/2026 11:28:14
 
 ## Sumário de Aulas
 
@@ -51,6 +51,9 @@
 - Aula 04 - [Criando Componentes no React](#criando-componentes-no-react)
 - Aula 05 - [Props](#props)
 - Aula 06 - [Adicionando CSS](#adicionando-css)
+- Aula 07 - [Fragmentos](#fragmentos)
+- Aula 08 - [Avançando em Props](#avançando-em-props)
+- Aula 09 - [Eventos](#eventos)
 
 ---
 
@@ -92,6 +95,7 @@ npm start
 ```
 
 &emsp; Usando o `localhost:3000`, será exibido a página padrão do React. Editando o arquivo `src/App.js` e salvando o conteúdo exibido será mudado. Também é possível ir para a documentação oficial da linguagem através do link no texto `Learn React`.
+
 
 ---
 
@@ -151,6 +155,7 @@ function App() {
 
 export default App
 ```
+
 
 ---
 
@@ -243,6 +248,7 @@ function HelloWorld() {
 
 export default HelloWorld
 ```
+
 
 ---
 
@@ -378,7 +384,244 @@ export default Pessoa
 - Usamos o **CSS Modules** para isso (Componente.module.css)
 - Devemos importar o css no componente
 
+### Diferenciações
 
+&emsp; Podemos ter um CSS global com todos os estilos em um único arquivo principal, como também podemos criar um arquivo específico para cada componente.
+
+&emsp; Os nomes das classes não devem ser declarados usando "-". A convenção é usar letras maiúsculas ou "_" para a separação de palavras de uma classe.
+
+### Exemplo de CSS
+
+#### Criação
+
+```css
+.frase_container {
+    background-color: #333;
+    border: 1px solid #111;
+}
+
+.frase_content {
+    color: #fff;
+    background-color: #333;
+    margin: 0;
+}
+```
+
+#### Utilização do CSS criado
+
+&emsp; No início do arquivo que está o componente que será aplicado o estilo, coloque o código abaixo. O 'styles' é um objeto que condensa todas as classes do arquivo CSS em propriedades.
+
+```js
+import styles from './caminho_arquivo/arquivo_estilo.css'
+```
+
+&emsp; Um exemplo de arquivo completo:
+
+```js
+import styles from '/Frases.modules.css'
+
+function Frase() {
+    return (
+        <div className={styles.frase_container}>
+            <p>Este é um componente com uma frase!</p>
+        </div>
+    )
+}
+
+export default Frase
+```
+
+
+---
+
+## Fragmentos
+
+- Os **Reacts Fragments** permitem a criação de um componente sem elemento pai
+- O seu propósito é **desacoplamento de nós do DOM**
+- A sintáxe é **`<>`** e **``</>``** e não há um nome para a tag
+- Criamos no próprio JSX
+
+### Exemplo
+
+&emsp; Para a criação de uma lista com elementos representando marcas de carro, mas sem o encapsulamento de retorno em uma `div`. A `div` de encapsulamento é substituida por `<>` e `</>`.
+
+&emsp; Na construção do HTML por meio dos componentes, a tag vazia não é registrada e fica somente seu conteúdo, deixando o código mais limpo e evitando tags desncessárias.
+
+```js
+function Item(props) {
+    return (
+        <>
+            <li>{props.marca}</li>
+        </li>
+    )
+}
+
+export default Item
+```
+
+<p align="right" class="legenda">
+  <ins><i>Componente 'Item'. Caminho de arquivo: 'src/Components/Item.js'</i></ins>
+</p>
+
+
+```js
+import Item from '.Item'
+
+function List() {
+    return (
+        <div>
+            <h1>Minha lista</h1>
+            <ul>
+                <Item marca="Ferrari"/>
+                <Item marca="Fiat"/>
+            </ul>
+        </div>
+    )
+}
+
+export default List
+```
+
+<p align="right" class="legenda">
+  <ins><i>Componente 'List'. Caminho de arquivo: 'src/Components/List.js'</i></ins>
+</p>
+
+
+
+---
+
+## Avançando em Props
+
+- Podemos **definir tipos para Props**, realizando portando um tipo de validação
+- Definimos um objeto chamado `propTypes` no próprio componente
+- Ainda há a possibilidade de **definir um valor padrão**, neste caso, utilizaremos o objeto ``defaultProps``
+
+&emsp; Essa validação é feita no nível de programação. Caso as exigências não sejam atendidas, não irá aparecer um erro para o usuário, mas no `console` será possível perceber o tipo de erro especificado.
+
+&emsp; Um ponto que se deve ter em mente é que `defaultProps` tiram os erros exibidos no console com os `propTypes` definidos.
+
+### Exemplo
+
+```js
+import PropTypes from 'prop-types'
+
+function Item ( marca, ano_lancamento) {
+    return (
+        <>
+            <li>
+                {marca} - {ano_lancamento}
+            </li>
+        </>
+    )
+}
+
+Item.prototype = {
+    marca: PropTypes.string.isRequired,
+    ano_lancamento: PropTypes.number,
+}
+
+Item.defaultProps = {
+    marca: "A marca não foi informada.",
+    ano_lancamento: 0
+}
+
+export default Item
+```
+
+<p align="right" class="legenda">
+  <ins><i>Componente 'Item', usado em 'List'. Caminho: src/Components/Item.js</i></ins>
+</p>
+
+```js
+import Item from './component-Item'
+
+function List() {
+    return (
+        <>
+            <h1>Minha lista de carros</h1>
+            <ul>
+                <Item marca="Ferrari" ano_lancamento={1985} />
+                <Item marca="Fiat" ano_lancamento={1964} />
+                <Item marca="Renault" />
+            </ul>
+        </>
+    )
+}
+```
+
+<p align="right" class="legenda">
+  <ins><i>Componente 'List'. Caminho: src/Components/List.js</i></ins>
+</p>
+
+
+
+---
+
+## Eventos
+
+- Os eventos em React são os mesmo do DOM, ou seja, também temos eventos para responder a ação de um click
+- Cada evento está atrelado a uma tag, que irá executá-lo
+- Geralmente um **método** é atribuído ao evento e deve ser criado no componente
+
+&emsp; Esse evento pode ser chamado ou até modificado por uma propriedade.
+
+&emsp; O evento de `click` é o mesmo do JavaScript, executando uma ação assim que um elemento recebe um click.
+
+&emsp; Outro evento útil é o de `Formulário`. Temos também uma forma de segurar o resultado de um evento, já que um formulário teria que conversar com o backend, mas este comportamento padrão do HTML é parado e o recarregamento do componente não acontece.
+
+### Exemplo
+
+```js
+function Evento({ numero }) {
+
+    function meuEvento() {
+        console.log(`Evento ${numero} ativado.`)
+    }
+
+    return (
+        <div>
+            <p>Clique aqui para disparar o evento:</p>
+            <button onClick={meuEvento}>Ativar!</button>
+        </div>
+    )
+}
+
+export default Evento
+```
+
+<p align="right" class="legenda">
+  <ins><i>Componente 'Evento'. Caminho: 'src/Components/Evento.js'.</i></ins>
+</p>
+
+```js
+function Form() {
+
+    function cadastrarUsuario(e) {
+        e.preventDefault()
+        console.log('Usuário cadastrado com sucesso.')
+    }
+
+    return (
+        <div>
+            <h1>Meu cadastro:</h1>
+            <form onSubmit={cadastrarUsuario}>
+                <div>
+                    <input type="text" placeholder="Digite o seu nome..."></input>
+                </div>
+                <div>
+                    <input type="submit" value="Cadastrar" />
+                </div>
+            </form>
+        </div>
+    )
+}
+
+export default Form
+```
+
+<p align="right" class="legenda">
+  <ins><i>Componente 'Form'. Caminho: 'src/Components/Form.js'.</i></ins>
+</p>
 
 ---
 

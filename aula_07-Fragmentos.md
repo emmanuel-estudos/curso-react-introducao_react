@@ -7,13 +7,11 @@
 
 ## Exemplo
 
-Para a criação de uma lista com elementos representando marcas de carro, mas sem o encapsulamento de retorno em uma `div`. A `div` de encapsulamento é substituida por `<>` e `</>`.
+&emsp; Para a criação de uma lista com elementos representando marcas de carro, mas sem o encapsulamento de retorno em uma `div`. A `div` de encapsulamento é substituida por `<>` e `</>`.
 
-Na construção do HTML por meio dos componentes, a tag vazia não é registrada e fica somente seu conteúdo, deixando o código mais limpo e evitando tags desncessárias.
+&emsp; Na construção do HTML por meio dos componentes, a tag vazia não é registrada e fica somente seu conteúdo, deixando o código mais limpo e evitando tags desncessárias.
 
 ```js
-// arquivo src/Components/Item.js
-
 function Item(props) {
     return (
         <>
@@ -25,9 +23,12 @@ function Item(props) {
 export default Item
 ```
 
-```js
-// arquivo src/Components/List.js
+<p align="right" class="legenda">
+  <ins><i>Componente 'Item'. Caminho de arquivo: 'src/Components/Item.js'</i></ins>
+</p>
 
+
+```js
 import Item from '.Item'
 
 function List() {
@@ -44,3 +45,7 @@ function List() {
 
 export default List
 ```
+
+<p align="right" class="legenda">
+  <ins><i>Componente 'List'. Caminho de arquivo: 'src/Components/List.js'</i></ins>
+</p>
