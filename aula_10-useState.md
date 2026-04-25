@@ -1,3 +1,16 @@
+# UseState
+
+- usado para a manipulação de dados
+- é um hook do React
+- com ele, podemos manusear o estado (dados) de um componente de forma simples
+- funciona muito bem com eventos
+- podemos relacionar um evento com uma mudança de estado
+- muito usados em formulários, sendo possível consultar e modificar os valores
+- é necessária a sua importação antes de ser usado
+
+## Exemplo
+
+```js
 import { useState } from "react"
 
 function Form() {
@@ -43,3 +56,8 @@ function Form() {
 }
 
 export default Form
+```
+
+<p align="right" class="bloco-de-codigo">
+  <ins><i>Componente 'Form' que recebe os valores passados durante o preenchimento do formulário. Caminho: 'src/Components/Forms.js'.</i></ins>
+</p>
