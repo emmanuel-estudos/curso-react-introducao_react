@@ -1,4 +1,4 @@
-import Button from "./component-Button"
+import Button from "./Button"
 
 function Evento() {
 

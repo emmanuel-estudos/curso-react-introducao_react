@@ -69,6 +69,8 @@ function App() {
         </div>
     )
 }
+
+export default App
 ```
 
 <p align="right" class="bloco-de-codigo">

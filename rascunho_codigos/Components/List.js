@@ -1,4 +1,4 @@
-import Item from './component-Item'
+import Item from './Item'
 
 function List() {
     return (
